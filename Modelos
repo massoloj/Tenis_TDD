@@ -1,0 +1,22 @@
+objetos
+
+game
+players = []
+winner
+current_set
+
+add_points
+reset_points
+check_set_winner
+check_game_winner	
+validate_deuce
+validate_tie_brake
+
+
+player
+current_points
+sets_won
+sets_lost
+
+serve
+receive
