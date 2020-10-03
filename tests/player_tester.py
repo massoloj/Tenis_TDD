@@ -1,16 +1,18 @@
 import unittest
 
-from source.constants import POINT
+from source.player import Player
 
 
 class PlayerTester(unittest.TestCase):
 
     def setUp(self):
         self.player1 = Player(username='player1')
-        self.player2 = Player(username='player2')
-        self.game = Game(Player1, Player2)
 
-    def test_serve_success(self):
-        player1.serve()
-        yield
-        assert player1.current_points == POINT
+    def test_serve_ball_success(self):
+        self.player1.serve_ball()
+
+        assert self.player1.score == 15
+
+
+if __name__ == '__main__':
+    unittest.main()

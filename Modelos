@@ -1,7 +1,8 @@
 objetos
 
 game
-players = []
+player1
+player2
 winner
 current_set
 
