@@ -1,1 +1,2 @@
 POINT = 15
+GAME_POINT = 10

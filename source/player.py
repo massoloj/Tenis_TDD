@@ -1,7 +1,7 @@
 from asyncio import wait
-from random import random
+import random
 
-from source.constants import POINT
+from source.constants import POINT, GAME_POINT
 
 
 class Player:
@@ -9,27 +9,21 @@ class Player:
     def __init__(self, username):
         self.username = username
         self.score = 0
+        self.games_won = 0
 
-    @classmethod
-    def _ball_is_hitted_back(cls):
+    def __ball_is_hitted_back(self):
         return bool(random.getrandbits(1))
 
     def serve_ball(self):
         print(f'Player {self.username} served the ball')
         
 
-        if self._ball_is_hitted_back():
+        if self.__ball_is_hitted_back():
             print(f'The ball was returned by the other player')
         else:
-            print(f'Player {self.username} scored a point')
-            self.score += POINT
-
-    def return_ball(self):
-        ball_is_hitted_back = random.choice([True, False])
-
-        if ball_is_hitted_back:
-            #call receive method
-            pass
-        else:
-            #call end_current_game method
-            pass
+            if self.score == 30:
+                print(f'Player {self.username} scored a game point')
+                self.score += GAME_POINT
+            else:
+                print(f'Player {self.username} scored a point')
+                self.score += POINT
