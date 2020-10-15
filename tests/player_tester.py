@@ -1,9 +1,8 @@
 import unittest
 
-from unittest import mock
 from unittest.mock import patch
-
 from source.player import Player
+
 
 class PlayerTester(unittest.TestCase):
 
