@@ -1,6 +1,7 @@
+import sys
 import unittest
+from io import StringIO
 
-from unittest.mock import patch
 from source.player import Player
 
 
@@ -9,27 +10,15 @@ class PlayerTester(unittest.TestCase):
     def setUp(self):
         self.player1 = Player(username='player1')
 
-    def test_serve_ball_scores_a_point(self):
-        with patch('source.player.Player.ball_is_hitted_back') as mocked_ball:
-            mocked_ball.return_value = False
-            self.player1.serve_ball()
+    def test_serve_ball(self):
+        capturedOutput = StringIO()
+        sys.stdout = capturedOutput
 
-            assert self.player1.score == 15
+        self.player1.serve_ball()
+        sys.stdout = sys.__stdout__
 
-    def test_serve_ball_scores_a_game_point(self):
-        with patch('source.player.Player.ball_is_hitted_back') as mocked_ball:
-            mocked_ball.return_value = False
-            self.player1.score = 30
-            self.player1.serve_ball()
-
-            assert self.player1.score == 40
-
-    def test_serve_ball_does_not_score_a_point(self):
-        with patch('source.player.Player.ball_is_hitted_back') as mocked_ball:
-            mocked_ball.return_value = True
-            self.player1.serve_ball()
-
-            assert self.player1.score == 0
+        print('value:', capturedOutput.getvalue())
+        assert capturedOutput.getvalue() == 'Player player1 served the ball\n'
 
 
 if __name__ == '__main__':
