@@ -20,6 +20,7 @@ class GameTester(unittest.TestCase):
         with patch('source.game.Game.ball_is_hitted_back') as mocked_ball:
             mocked_ball.return_value = False
             self.game.player1.score = 30
+
             self.game.move_player(self.game.player1)
 
             assert self.game.player1.score == 40
@@ -27,6 +28,7 @@ class GameTester(unittest.TestCase):
     def test_serve_ball_does_not_score_a_point(self):
         with patch('source.game.Game.ball_is_hitted_back') as mocked_ball:
             mocked_ball.return_value = True
+
             self.game.move_player(self.game.player1)
 
             assert self.game.player1.score == 0
@@ -36,7 +38,8 @@ class GameTester(unittest.TestCase):
             mocked_ball.return_value = False
             self.game.player1.score = 30
 
-            self.game.start_game()
+            self.game.move_player(self.game.player1)
+            self.game.check_game_state(self.game.player1, self.game.player2)
 
             assert self.game.player1.score == 0
             assert self.game.player1.games_won == 1
@@ -47,7 +50,8 @@ class GameTester(unittest.TestCase):
             self.game.player1.games_won = 5
             self.game.player1.score = 30
 
-            self.game.start_game()
+            self.game.move_player(self.game.player1)
+            self.game.check_game_state(self.game.player1, self.game.player2)
 
             assert self.game.player1.score == 0
             assert self.game.player1.games_won == 0
@@ -58,7 +62,8 @@ class GameTester(unittest.TestCase):
             mocked_ball.return_value = False
             self.game.player1.score = 30
             self.game.player2.score = 40
-            self.game.start_game()
+
+            self.game.move_player(self.game.player1)
 
             assert self.game.player1.score == 40
             assert self.game.player1.games_won == 0
@@ -69,8 +74,9 @@ class GameTester(unittest.TestCase):
             self.game.player1.score = 40
             self.game.player2.score = 40
 
-            self.game.start_game()
-            self.game.start_game()
+            self.game.move_player(self.game.player1)
+            self.game.move_player(self.game.player1)
+            self.game.check_game_state(self.game.player1, self.game.player2)
 
             assert self.game.player1.score == 0
             assert self.game.player1.games_won == 1
